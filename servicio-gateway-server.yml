@@ -1,0 +1,22 @@
+server:
+  port: 8090
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8009/eureka/
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: servicio-productos-optica
+          uri: lb://servicio-productos-optica
+          predicates:
+            - Path=/api/productos/**
+          filters:
+            - StripPrefix=2
+        - id: servicio-comprobante
+          uri: lb://servicio-comprobante
+          predicates:
+            - Path=/api/comprobante/**
+          filters:
+            - StripPrefix=2
